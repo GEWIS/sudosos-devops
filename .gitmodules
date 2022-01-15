@@ -1,0 +1,6 @@
+[submodule "sudosos-back-end"]
+	path = sudosos-back-end
+	url = git@gitlab.com:sudosos/sudosos-back-end.git
+[submodule "sudosos-front-end"]
+	path = sudosos-front-end
+	url = git@gitlab.com:sudosos/sudosos-front-end.git
