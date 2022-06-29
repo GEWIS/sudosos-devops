@@ -1,0 +1,93 @@
+version: '2'
+services:
+  proxy:
+    image: registry.gitlab.com/sudosos/nginx-proxy
+    ports:
+      - "9300:80"
+    volumes:
+      - sudosos-products:/app/out/data/products
+      - sudosos-banners:/app/out/data/banners
+    links:
+      - frontend
+      - backend
+    restart: unless-stopped
+  pos:
+    ports:
+      - "9301:80"
+    image: registry.gitlab.com/sudosos/point-of-sale:feature-ui-improvements
+    restart: unless-stopped
+  frontend:
+    image: registry.gitlab.com/sudosos/sudosos-front-end:feature-marriage-context-switch
+    # ENV variables are managed on compile.
+    # environment:
+      # NODE_ENV
+      # VUE_APP_DEVELOP
+      # VUE_APP_API_BASE
+      # STRIPE_PUBLISHABLE_KEY
+    restart: unless-stopped
+  mysql:
+    image: mariadb:10
+    environment:
+      - MYSQL_RANDOM_ROOT_PASSWORD=true
+      - MYSQL_DATABASE=sudosos
+      - MYSQL_USER=sudosos
+      - MYSQL_PASSWORD=sudosos
+    restart: unless-stopped
+  backend:
+    image: registry.gitlab.com/sudosos/sudosos-back-end:hotfix-transaction-ordering
+    links:
+      - mysql
+    volumes:
+      - sudosos-backend-config:/app/config
+      - sudosos-products:/app/out/data/products
+      - sudosos-banners:/app/out/data/banners
+    environment:
+      - NODE_ENV=production
+      - API_HOST=sudosos.gewis.nl
+      - API_BASEPATH=/api/v1
+      - CURRENCY_CODE=EUR
+      - CURRENCY_PRECISION=2
+      - JWT_KEY_PATH=config/jwt.key
+      - HTTP_PORT=80
+      - TYPEORM_CONNECTION=sqlite
+      - TYPEORM_DATABASE=config/local.sqlite
+      - TYPEORM_SYNCHRONIZE=false
+      - LOG_LEVEL=TRACE
+
+      # LDAP CONFIG
+
+      # LDAP_SERVER_URL=
+      # LDAP_BASE=
+      # LDAP_BIND_USER=
+      # LDAP_BIND_PW=
+
+      # What SudoSOS considers to be SudoSOS users from LDAP
+      # LDAP_USER_FILTER=
+      # LDAP_USER_BASE=CN=PRIV - SudoSOS Users,OU=SudoSOS Roles,OU=Groups,DC=gewiswg,DC=gewis,DC=nl
+
+      # What SudoSOS considers to be Shared accounts (Organs)
+      # LDAP_SHARED_ACCOUNT_FILTER=
+
+      # Role assignment filter.
+      # LDAP_ROLE_FILTER=OU=
+      - ENABLE_LDAP=false
+
+      # STRIPE KEYS
+      - STRIPE_PUBLIC_KEY=
+      - STRIPE_PRIVATE_KEY=
+      - STRIPE_WEBHOOK_SECRET=
+
+      - GEWISWEB_JWT_SECRET=
+    restart: unless-stopped
+  backend-tool:
+    image: alpine
+    volumes:
+      - sudosos-backend-config:/app/config
+    command: ['sleep', '100000']
+volumes:
+  sudosos-products:
+    driver: local
+  sudosos-banners:
+    driver: local
+  sudosos-backend-config:
+    driver: local
