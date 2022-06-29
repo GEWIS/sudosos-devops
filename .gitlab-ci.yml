@@ -9,6 +9,7 @@ dockerize:
     - docker:19.03-dind
   before_script:
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - apk update && apk add make
   script:
     - make build-all
     - make push-all
