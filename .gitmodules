@@ -4,3 +4,6 @@
 [submodule "sudosos-front-end"]
 	path = sudosos-front-end
 	url = git@gitlab.com:sudosos/sudosos-front-end.git
+[submodule "sudosos-point-of-sale"]
+	path = sudosos-point-of-sale
+	url = https://gitlab.com/sudosos/point-of-sale
