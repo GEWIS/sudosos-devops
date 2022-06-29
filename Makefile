@@ -1,8 +1,9 @@
-export SUDOSOS_BASE_TAG := sudosos/devops/
+export SUDOSOS_BASE_TAG := sudosos/sudosos-devops/
 export SUDOSOS_BACK_END := back-end
 export SUDOSOS_FRONT_END := front-end
 export SUDOSOS_NGINX_PROXY := nginx-proxy
 export SUDOSOS_POINT_OF_SALE := point-of-sale
+export REGISTRY := registry.gitlab.com
 
 ifdef REGISTRY
 BASE := $(REGISTRY)/
