@@ -4,6 +4,7 @@ stages:
 
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
+  REGISTRY: $CI_REGISTRY
 
 dockerize:
   image: docker:19.03
