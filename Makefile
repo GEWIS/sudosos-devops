@@ -4,21 +4,22 @@ export SUDOSOS_FRONT_END := front-end
 export SUDOSOS_NGINX_PROXY := nginx-proxy
 export SUDOSOS_POINT_OF_SALE := point-of-sale
 
-ifdef $(CI_REGISTRY)
-REGISTRY := $(CI_REGISTRY)/
+ifdef REGISTRY
+BASE := $(REGISTRY)/
 endif
 
+
 build-back-end:
-	docker build ./sudosos-$(SUDOSOS_BACK_END) -t $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_BACK_END)
+	docker build ./sudosos-$(SUDOSOS_BACK_END) -t $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_BACK_END)
 
 build-front-end:
-	docker build ./sudosos-$(SUDOSOS_FRONT_END) -t $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_FRONT_END)
+	docker build ./sudosos-$(SUDOSOS_FRONT_END) -t $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_FRONT_END)
 
 build-nginx-proxy:
-	docker build ./sudosos-$(SUDOSOS_NGINX_PROXY) -t $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_NGINX_PROXY)
+	docker build ./sudosos-$(SUDOSOS_NGINX_PROXY) -t $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_NGINX_PROXY)
 
 build-point-of-sale:
-	docker build ./sudosos-$(SUDOSOS_POINT_OF_SALE) -t $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_POINT_OF_SALE)
+	docker build ./sudosos-$(SUDOSOS_POINT_OF_SALE) -t $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_POINT_OF_SALE)
 
 build-all:
 	make build-back-end
@@ -27,7 +28,7 @@ build-all:
 	make build-point-of-sale
 
 push-all:
-	docker push $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_BACK_END)
-	docker push $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_FRONT_END)
-	docker push $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_NGINX_PROXY)
-	docker push $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_POINT_OF_SALE)
+	docker push $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_BACK_END)
+	docker push $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_FRONT_END)
+	docker push $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_NGINX_PROXY)
+	docker push $(BASE)$(SUDOSOS_BASE_TAG)$(SUDOSOS_POINT_OF_SALE)
