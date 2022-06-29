@@ -14,10 +14,10 @@ services:
   pos:
     ports:
       - "9301:80"
-    image: registry.gitlab.com/sudosos/point-of-sale:feature-ui-improvements
+    image: registry.gitlab.com/sudosos/point-of-sale
     restart: unless-stopped
   frontend:
-    image: registry.gitlab.com/sudosos/sudosos-front-end:feature-marriage-context-switch
+    image: registry.gitlab.com/sudosos/front-end
     # ENV variables are managed on compile.
     # environment:
       # NODE_ENV
@@ -34,7 +34,7 @@ services:
       - MYSQL_PASSWORD=sudosos
     restart: unless-stopped
   backend:
-    image: registry.gitlab.com/sudosos/sudosos-back-end:hotfix-transaction-ordering
+    image: registry.gitlab.com/sudosos/back-end
     links:
       - mysql
     volumes:
