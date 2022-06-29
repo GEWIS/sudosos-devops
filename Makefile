@@ -9,6 +9,7 @@ REGISTRY := $(CI_REGISTRY)/
 endif
 
 build-back-end:
+	ls
 	docker build ./sudosos-$(SUDOSOS_BACK_END) -t $(REGISTRY)$(SUDOSOS_BASE_TAG)$(SUDOSOS_BACK_END)
 
 build-front-end:
