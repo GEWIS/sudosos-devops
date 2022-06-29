@@ -5,6 +5,12 @@ stages:
 variables:
   GIT_SUBMODULE_STRATEGY: recursive
   REGISTRY: $CI_REGISTRY
+  SUDOSOS_BASE_TAG: sudosos/
+  SUDOSOS_BACK_END: back-end
+  SUDOSOS_FRONT_END: front-end
+  SUDOSOS_NGINX_PROXY: nginx-proxy
+  SUDOSOS_POINT_OF_SALE: point-of-sale
+
 
 dockerize:
   image: docker:19.03
@@ -17,5 +23,9 @@ dockerize:
   script:
     - make build-all
     - make push-all
+    - docker push $CI_REGISTRY/$SUDOSOS_BASE_TAG$SUDOSOS_BACK_END
+    - docker push $CI_REGISTRY/$SUDOSOS_BASE_TAG$SUDOSOS_FRONT_END
+    - docker push $CI_REGISTRY/$SUDOSOS_BASE_TAG$SUDOSOS_NGINX_PROXY
+    - docker push $CI_REGISTRY/$SUDOSOS_BASE_TAG$SUDOSOS_POINT_OF_SALE
   except:
     - master
