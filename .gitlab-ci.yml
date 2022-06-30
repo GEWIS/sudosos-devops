@@ -17,5 +17,5 @@ dockerize:
   script:
     - make build-all
     - make push-all
-  except:
-    - master
+  environment:
+    name: Development
