@@ -28,7 +28,8 @@ dockerize:
     - echo "VUE_APP_GEWIS_TOKEN =$VUE_APP_GEWIS_TOKEN" >> .env
     - echo "VUE_APP_STRIPE_PUBLISHABLE_KEY =$VUE_APP_STRIPE_PUBLISHABLE_KEY" >> .env
     - cp ./.env ./sudosos-front-end/.env
-    - less ./sudosos-front-end/.env
+    - ls
+    - ls ./sudosos-front-end/
   script:
     - docker build ./sudosos-"$SUDOSOS_BACK_END" -t "$REGISTRY"/"$SUDOSOS_BASE_TAG""$SUDOSOS_BACK_END"
     - docker build ./sudosos-"$SUDOSOS_FRONT_END" -t "$REGISTRY"/"$SUDOSOS_BASE_TAG""$SUDOSOS_FRONT_END"
