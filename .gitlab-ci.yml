@@ -21,6 +21,7 @@ dockerize:
   services:
     - docker:19.03-dind
   before_script:
+    - printenv
     - apk update && apk add make
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     - echo "VUE_APP_API_BASE =$VUE_APP_API_BASE" >> .env
