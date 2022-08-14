@@ -8,5 +8,5 @@
 	branch = develop
 [submodule "sudosos-point-of-sale"]
 	path = sudosos-point-of-sale
-	url = ../point-of-sale
-	branch = roys-fixes
+	url = ../point-of-sale.git
+	branch = develop
