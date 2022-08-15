@@ -20,8 +20,8 @@ dockerize:
     - apk update && apk add make
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     # ENV variables for the back-end can be set via docker-compose.
-    - cp '$ENV_FILE' ./sudosos-front-end/.env
-    - cp '$ENV_FILE' ./sudosos-point-of-sale/.env
+    - cp "$ENV_FILE" ./sudosos-front-end/.env
+    - cp "$ENV_FILE" ./sudosos-point-of-sale/.env
   script:
     - docker build ./sudosos-"$SUDOSOS_BACK_END" -t "$REGISTRY"/"$SUDOSOS_BASE_TAG""$SUDOSOS_BACK_END"
     - docker build ./sudosos-"$SUDOSOS_FRONT_END" -t "$REGISTRY"/"$SUDOSOS_BASE_TAG""$SUDOSOS_FRONT_END"
