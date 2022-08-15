@@ -17,6 +17,8 @@ dockerize:
   services:
     - docker:19.03-dind
   before_script:
+    - echo "$ENV_FILE"
+    - less "$ENV_FILE"
     - apk update && apk add make
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
     # ENV variables for the back-end can be set via docker-compose.
