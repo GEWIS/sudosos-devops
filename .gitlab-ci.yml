@@ -30,3 +30,23 @@ dockerize:
     - make push-all
   environment:
     name: Development
+
+dockerize-production:
+  image: docker:19.03
+  stage: build
+  services:
+    - docker:19.03-dind
+  before_script:
+    - apk update && apk add make
+    - docker login --username="$PROD_REGISTRY_USER" --password="$PROD_REGISTRY_PASSWORD" $PROD_REGISTRY
+    # ENV variables for the back-end can be set via docker-compose.
+    - cp "$ENV_FILE" ./sudosos-front-end/.env
+    - cp "$ENV_FILE" ./sudosos-point-of-sale/.env
+  script:
+    - docker build ./sudosos-"$SUDOSOS_BACK_END" -t "$PROD_REGISTRY"/sudosos/"$SUDOSOS_BACK_END"
+    - docker build ./sudosos-"$SUDOSOS_FRONT_END" -t "$PROD_REGISTRY"/sudosos/"$SUDOSOS_FRONT_END"
+    - docker build ./sudosos-"$SUDOSOS_NGINX_PROXY" -t "$PROD_REGISTRY"/sudosos/"$SUDOSOS_NGINX_PROXY"
+    - docker build ./sudosos-"$SUDOSOS_POINT_OF_SALE" -t "$PROD_REGISTRY"/sudosos/"$SUDOSOS_POINT_OF_SALE"
+    - make push-all
+  environment:
+    name: Production
