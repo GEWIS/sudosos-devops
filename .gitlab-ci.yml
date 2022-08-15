@@ -38,7 +38,7 @@ dockerize-production:
     - docker:19.03-dind
   before_script:
     - apk update && apk add make
-    - docker login --username="$PROD_REGISTRY_USER" --password="PROD_REGISTRY_PASSWORD" $PROD_REGISTRY
+    - docker login --username="$PROD_REGISTRY_USER" --password="$PROD_REGISTRY_PASSWORD" $PROD_REGISTRY
     # ENV variables for the back-end can be set via docker-compose.
     - cp "$ENV_FILE" ./sudosos-front-end/.env
     - cp "$ENV_FILE" ./sudosos-point-of-sale/.env
