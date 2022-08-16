@@ -47,6 +47,9 @@ dockerize-production:
     - docker build ./sudosos-"$SUDOSOS_FRONT_END" -t "$PROD_REGISTRY"/sudosos/"$SUDOSOS_FRONT_END"
     - docker build ./sudosos-"$SUDOSOS_NGINX_PROXY" -t "$PROD_REGISTRY"/sudosos/"$SUDOSOS_NGINX_PROXY"
     - docker build ./sudosos-"$SUDOSOS_POINT_OF_SALE" -t "$PROD_REGISTRY"/sudosos/"$SUDOSOS_POINT_OF_SALE"
-    - make push-all
+    - docker push "$PROD_REGISTRY"/sudosos/"$SUDOSOS_BACK_END"
+    - docker push "$PROD_REGISTRY"/sudosos/"$SUDOSOS_FRONT_END"
+    - docker push "$PROD_REGISTRY"/sudosos/"$SUDOSOS_NGINX_PROXY"
+    - docker push "$PROD_REGISTRY"/sudosos/"$SUDOSOS_POINT_OF_SALE"
   environment:
     name: Production
