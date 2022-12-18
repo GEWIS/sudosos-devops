@@ -5,7 +5,7 @@
 [submodule "sudosos-front-end"]
 	path = sudosos-front-end
 	url = ../sudosos-front-end.git
-	branch = develop
+	branch = master
 [submodule "sudosos-point-of-sale"]
 	path = sudosos-point-of-sale
 	url = ../point-of-sale.git
